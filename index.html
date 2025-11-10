@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Miss Makeup Store & More — Glamour Chic</title>
+  <meta name="description" content="Miss Makeup Store & More — boutique glamour chic : vêtements, chaussures, perruques, produits capillaires et cosmétiques. Commande en ligne, paiement MonCash / NatCash / carte." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#0b63d4;
+      --electric:#0a79ff;
+      --black:#0b0b0b;
+      --gold:#d4af37;
+      --rose:#ffdfe8;
+      --glass: rgba(255,255,255,0.06);
+      --muted:#f5f7fb;
+      --radius:16px;
+      color-scheme: light;
+      font-family: 'Inter', system-ui, -apple-system, 'Montserrat', sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{background:linear-gradient(180deg,#fff 0%, #fbfdff 100%);color:var(--black);-webkit-font-smoothing:antialiased}
+
+    /* Page container */
+    .wrap{max-width:1200px;margin:28px auto;padding:24px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-title{display:flex;flex-direction:column}
+    .site-title{font-weight:800;font-size:20px;letter-spacing:0.6px}
+    .tag{font-size:12px;color:#666}
+
+    /* tiny butterfly */
+    .butterfly{width:14px;height:14px;display:inline-block;margin-left:8px;transform-origin:center;animation:float 3.6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(6deg)}100%{transform:translateY(0) rotate(0)}}
+
+    /* Nav */
+    nav{display:flex;gap:12px;align-items:center}
+    .nav-link{padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--black);font-weight:600}
+    .nav-cta{background:linear-gradient(90deg,var(--electric),var(--blue));color:white;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:700}
+
+    /* Hero */
+    .hero{margin-top:18px;background:linear-gradient(135deg,rgba(10,121,255,0.06),rgba(20,12,45,0.02));padding:34px;border-radius:22px;display:grid;grid-template-columns:1fr 420px;gap:22px;align-items:center}
+    .hero-left h1{font-size:36px;margin:0;color:var(--black);line-height:1.02}
+    .hero-left p{margin:12px 0 0;color:#333}
+    .hero-actions{margin-top:18px;display:flex;gap:12px;align-items:center}
+    .btn-primary{padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--electric),var(--blue));color:white;border:none;font-weight:800;cursor:pointer;box-shadow:0 12px 30px rgba(10,121,255,0.12)}
+    .btn-ghost{padding:10px 16px;border-radius:12px;border:2px solid rgba(11,11,11,0.06);background:transparent;cursor:pointer;font-weight:700}
+
+    /* Right hero card */
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.55));backdrop-filter: blur(6px);padding:18px;border-radius:16px;box-shadow:0 10px 30px rgba(11,99,212,0.06)}
+    .hero-card img{width:100%;height:240px;object-fit:cover;border-radius:12px}
+
+    /* Floating subtle background elements (glamour dust) */
+    .bg-dust{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:-1}
+    .dust{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--gold);opacity:0.12;filter:blur(6px);animation:drift 12s linear infinite}
+    @keyframes drift{0%{transform:translateY(-10vh) translateX(0)}100%{transform:translateY(110vh) translateX(30vw)}}
+
+    /* Products grid */
+    .section-title{margin-top:28px;font-weight:800;display:flex;align-items:center;gap:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:16px}
+    .card{background:white;border-radius:14px;padding:12px;box-shadow:0 12px 30px rgba(11,99,212,0.04);display:flex;flex-direction:column}
+    .media{position:relative;border-radius:12px;overflow:hidden}
+    .media img{width:100%;height:220px;object-fit:cover;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+    .card:hover .media img{transform:scale(1.06)}
+    .product-info{padding-top:10px;display:flex;flex-direction:column;gap:8px}
+    .name{font-weight:700}
+    .price{font-weight:800;color:var(--black)}
+    .actions{margin-top:auto;display:flex;gap:8px}
+    .add-to-cart{flex:1;padding:10px;border-radius:10px;background:linear-gradient(90deg,var(--electric),var(--blue));color:white;border:none;cursor:pointer;font-weight:800}
+    .quick{padding:10px;border-radius:10px;border:2px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;font-weight:700}
+
+    /* Sticky cart */
+    .cart{position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--electric),var(--blue));color:white;padding:12px 14px;border-radius:999px;box-shadow:0 18px 40px rgba(10,121,255,0.18);cursor:pointer;font-weight:800}
+    .cart .count{background:white;color:var(--electric);padding:2px 8px;border-radius:999px;margin-left:8px;font-weight:900}
+
+    /* Modal / panels */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .panel{background:white;border-radius:14px;max-width:520px;width:100%;padding:18px}
+    .panel h3{margin-top:0}
+    .input{width:100%;padding:12px;border-radius:10px;border:1px solid #e6e9ef;margin-bottom:10px}
+    .pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    /* Newsletter / Account */
+    .newsletter{margin-top:20px;padding:16px;border-radius:12px;background:linear-gradient(90deg,rgba(255,223,232,0.6),rgba(212,175,55,0.06));display:flex;gap:12px;align-items:center}
+    .newsletter input{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(11,11,11,0.06)}
+    .newsletter button{padding:12px 16px;border-radius:10px;background:var(--black);color:white;border:none;font-weight:800;cursor:pointer}
+
+    /* Footer */
+    footer{margin-top:30px;padding:18px;display:flex;justify-content:space-between;color:#444}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .hero-card{order:-1}
+      .media img{height:180px}
+    }
+    @media (max-width:520px){
+      .site-title{font-size:16px}
+      nav{display:none}
+      header{gap:8px}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-dust" aria-hidden="true">
+    <div class="dust" style="left:10%;animation-duration:14s;top:-5%;width:6px;height:6px"></div>
+    <div class="dust" style="left:60%;animation-duration:18s;top:-10%;opacity:0.08"></div>
+    <div class="dust" style="left:85%;animation-duration:16s;top:-8%;opacity:0.06"></div>
+  </div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo-title">
+          <div style="display:flex;align-items:center;gap:6px">
+            <div style="font-weight:800;font-size:18px">Miss Makeup Store & More
+              <span class="butterfly" aria-hidden="true">
+                <!-- very small butterfly svg -->
+                <svg viewBox="0 0 64 64" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9bd1ff"/><stop offset="100%" stop-color="#0b63d4"/></linearGradient>
+                  </defs>
+                  <g transform="translate(0,6)">
+                    <path d="M6 6 C2 2,12 -4,16 4 C20 -4,36 2,32 8 C28 14,18 14,18 14 C18 14,10 14,6 6 Z" fill="url(#g2)"/>
+                    <path d="M6 24 C2 28,12 38,16 28 C20 38,36 30,32 24 C28 18,18 18,18 18 C18 18,10 18,6 24 Z" fill="#0b63d4"/>
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="tag">Mode • Chaussures • Perruques • Beauté • Produits Capillaire</div>
+        </div>
+      </div>
+
+      <nav aria-label="menu principal">
+        <a class="nav-link" href="#home">Accueil</a>
+        <a class="nav-link" href="#produits">Produits</a>
+        <a class="nav-link" href="#paiement">Paiement</a>
+        <a class="nav-link" href="#about">À propos</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <button class="nav-cta" id="openAccount">Se connecter / S'inscrire</button>
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <h1>Glamour Chic — la beauté qui t'appartient</h1>
+        <p>Collection exclusive de vêtements, chaussures, perruques et cosmétiques. Commande en ligne, paiement sécurisé MonCash / NatCash / Carte.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('produits').scrollIntoView({behavior:'smooth'})">Voir la collection</button>
+          <button class="btn-ghost" onclick="openNewsletter()">S'inscrire à la newsletter</button>
+        </div>
+        <div class="newsletter" style="margin-top:18px">
+          <input id="newsletterEmail" placeholder="Ton meilleur email pour des offres exclusives" aria-label="email newsletter">
+          <button onclick="subscribeNewsletter()">Je m'inscris</button>
+        </div>
+
+      </div>
+
+      <div class="hero-card" aria-hidden="true">
+        <img src="sandale.jpeg" alt="sandale">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+          <div style="font-weight:800">Nouveautés</div>
+          <div style="color:#666">Livraison locale — Retours 7j</div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <h2 class="section-title" id="produits">Produits populaires</h2>
+      <div class="grid" id="productGrid"></div>
+
+      <section id="paiement" style="margin-top:26px">
+        <h2 class="section-title">Paiement & sécurité</h2>
+        <div style="margin-top:12px">Nous acceptons: <strong>Carte bancaire</strong>, <strong>MonCash</strong>, <strong>NatCash</strong>. Les paiements sont simulés pour la démo — intégration réelle possible via API.</div>
+      </section>
+
+      <section id="about" style="margin-top:26px">
+        <h2 class="section-title">À propos</h2>
+        <p style="margin-top:10px">Miss Makeup Store & More est une boutique glamour dédiée à la femme moderne. Nous sélectionnons des pièces tendance, des soins haut de gamme et des perruques premium pour sublimer ton style.</p>
+      </section>
+
+      <section id="contact" style="margin-top:26px">
+        <h2 class="section-title">Contact</h2>
+        <form id="contactForm" style="margin-top:12px;display:grid;gap:8px;max-width:560px">
+          <input class="input" id="cname" placeholder="Nom" required>
+          <input class="input" id="cemail" placeholder="Email" type="email" required>
+          <textarea class="input" id="cmessage" rows="4" placeholder="Message"></textarea>
+          <div style="display:flex;gap:8px"><button class="btn-primary" type="submit">Envoyer</button><button class="btn-ghost" type="reset">Effacer</button></div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div>&copy; 2025 Miss Makeup Store & More</div>
+      <div>Port-au-Prince — Contact: +509 42242185</div>
+    </footer>
+
+    <button class="cart" id="cartBtn">Panier <span class="count" id="cartCount">0</span></button>
+
+  </div>
+
+  <!-- Modals -->
+  <div class="modal" id="paymentModal">
+    <div class="panel">
+      <h3>Paiement</h3>
+      <div id="orderSummary" style="margin-bottom:10px">Articles dans le panier: <span id="orderCount">0</span></div>
+      <div class="pay-grid">
+        <button class="pay-option" onclick="simulatePay('Carte bancaire')" style="padding:12px;border-radius:10px;border:2px solid #eee">💳 Carte bancaire</button>
+        <button class="pay-option" onclick="simulatePay('MonCash')" style="padding:12px;border-radius:10px;border:2px solid #eee">📱 MonCash</button>
+        <button class="pay-option" onclick="simulatePay('NatCash')" style="padding:12px;border-radius:10px;border:2px solid #eee">💵 NatCash</button>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end"><button onclick="closeModal('paymentModal')" class="btn-ghost">Annuler</button></div>
+    </div>
+  </div>
+
+  <div class="modal" id="accountModal">
+    <div class="panel">
+      <h3>Se connecter / Créer un compte</h3>
+      <input class="input" id="acctName" placeholder="Nom complet">
+      <input class="input" id="acctEmail" placeholder="Email" type="email">
+      <input class="input" id="acctPwd" placeholder="Mot de passe" type="password">
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+        <button class="btn-ghost" onclick="closeModal('accountModal')">Annuler</button>
+        <button class="btn-primary" onclick="createAccount()">Créer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="newsletterModal">
+    <div class="panel">
+      <h3>S'abonner à la newsletter</h3>
+      <input class="input" id="nmEmail" placeholder="Ton email">
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+        <button class="btn-ghost" onclick="closeModal('newsletterModal')">Annuler</button>
+        <button class="btn-primary" onclick="confirmNewsletter()">S'abonner</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Data & rendering */
+    const PRODUCTS = [
+      {id:1,name:"Robe Satinée",price:45,desc:'Coupe élégante, parfait pour soirée',img:'robe.jpg'},
+      {id:2,name:"Baskets Glam",price:68,desc:'Confort & style',img:'basket.jpg'},
+      {id:3,name:"Lace Frontal Premium",price:85,desc:'Cheveux naturels, finition soignée',img:'Lace.jpg'},
+      {id:4,name:"Palette Luxe",price:52,desc:'Teintes hautement pigmentées',img:'palette.jpg'},
+      {id:5,name:"Gamme Capillaire",price:22,desc:'Répare & nourrit',img:'capillaire.jpg'},
+    ];
+
+    const grid = document.getElementById('productGrid');
+    const cartCountEl = document.getElementById('cartCount');
+    const orderCountEl = document.getElementById('orderCount');
+    let cart = [];
+
+    function toUSD(n){return '$'+n.toFixed(2)}
+
+    function renderProducts(){
+      grid.innerHTML = '';
+      PRODUCTS.forEach(p=>{
+        const c = document.createElement('div');
+        c.className='card';
+        c.innerHTML = `
+          <div class="media"><img src="${p.img}" alt="${p.name}"></div>
+          <div class="product-info">
+            <div class="name">${p.name}</div>
+            <div style="color:#666;font-size:13px">${p.desc}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+              <div class="price">${toUSD(p.price)}</div>
+            </div>
+            <div class="actions">
+              <button class="add-to-cart" data-id="${p.id}">Ajouter au panier</button>
+              <button class="quick" data-id="${p.id}">Commander</button>
+            </div>
+          </div>`;
+        grid.appendChild(c);
+      });
+    }
+
+    document.addEventListener('click', e=>{
+      if(e.target.matches('.add-to-cart')){
+        const id = +e.target.dataset.id;
+        addToCart(id);
+      }
+      if(e.target.matches('.quick')){
+        const id = +e.target.dataset.id;
+        addToCart(id);
+        openModal('paymentModal');
+      }
+      if(e.target.id==='cartBtn' || e.target.closest('#cartBtn')) openModal('paymentModal');
+    });
+
+    function addToCart(id){
+      const product = PRODUCTS.find(p=>p.id===id);
+      cart.push(product);
+      cartCountEl.textContent = cart.length;
+      orderCountEl.textContent = cart.length;
+      // subtle animation
+      const cBtn = document.getElementById('cartBtn');
+      cBtn.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:300});
+    }
+
+    /* Modal controls */
+    function openModal(id){document.getElementById(id).style.display='flex'}
+    function closeModal(id){document.getElementById(id).style.display='none'}
+
+    document.getElementById('cartBtn').addEventListener('click',()=>openModal('paymentModal'));
+    document.getElementById('openAccount').addEventListener('click',()=>openModal('accountModal'));
+
+    function simulatePay(method){
+      // Simulated payment flows per method
+      if(cart.length===0){alert('Votre panier est vide. Ajoutez des articles avant de payer.');closeModal('paymentModal');return}
+      if(method==='Carte bancaire'){
+        // Simuler entrée de carte
+        const card = prompt('Entrer un numéro de carte (simulé) :');
+        if(!card){alert('Paiement annulé.');return}
+      } else if(method==='MonCash' || method==='NatCash'){
+        const phone = prompt('Entrer numéro téléphone pour ' + method + ' (simulé) :');
+        if(!phone){alert('Paiement annulé.');return}
+      }
+      // paiement simulé réussi
+      alert('Paiement effectué avec succès via ' + method + '! Merci pour votre commande.');
+      cart = [];
+      cartCountEl.textContent = '0';
+      orderCountEl.textContent = '0';
+      closeModal('paymentModal');
+    }
+
+    /* Account / Newsletter flows (simulés) */
+    function createAccount(){
+      const name = document.getElementById('acctName').value.trim();
+      const email = document.getElementById('acctEmail').value.trim();
+      const pwd = document.getElementById('acctPwd').value;
+      if(!name||!email||!pwd){alert('Remplissez tous les champs.');return}
+      alert('Compte créé — bienvenue ' + name + '! (simulation)');
+      closeModal('accountModal');
+    }
+
+    function openNewsletter(){document.getElementById('newsletterModal').style.display='flex'}
+    function confirmNewsletter(){
+      const e = document.getElementById('nmEmail').value.trim();
+      if(!e){alert('Entre ton email.');return}
+      alert('Merci! Tu es abonné(e) — ' + e + ' (simulation)');
+      closeModal('newsletterModal');
+    }
+
+    function subscribeNewsletter(){
+      const e = document.getElementById('newsletterEmail').value.trim();
+      if(!e){alert('Entre ton email.');return}
+      alert('Merci! Tu es abonné(e) — ' + e + ' (simulation)');
+      document.getElementById('newsletterEmail').value='';
+    }
+
+    /* Contact form handler */
+    document.getElementById('contactForm').addEventListener('submit', function(ev){
+      ev.preventDefault();
+      const n = document.getElementById('cname').value.trim();
+      const em = document.getElementById('cemail').value.trim();
+      if(!n||!em){alert('Nom et email requis.');return}
+      alert('Merci ' + n + '! Nous avons reçu ton message. (simulation)');
+      this.reset();
+    });
+
+    // initial render
+    renderProducts();
+
+    // Close modals on outside click
+    document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click', function(e){if(e.target===this) this.style.display='none'}));
+
+    // small accessibility: Esc to close
+    document.addEventListener('keydown', e=>{if(e.key==='Escape'){document.querySelectorAll('.modal').forEach(m=>m.style.display='none')}});
+  </script>
+</body>
+</html>
